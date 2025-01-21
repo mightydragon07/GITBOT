@@ -1,12 +1,27 @@
 'use client';
 
 import React, { useState } from 'react';
+import { students } from './students'; // Ensure this path is correct
 
 const StudentTrackingSystem: React.FC = () => {
     const [activeTab, setActiveTab] = useState('Personal Info');
+    const [selectedStudent, setSelectedStudent] = useState(students.length > 0 ? students[0] : null);
 
     const handleTabClick = (tab: string) => {
         setActiveTab(tab);
+    };
+
+    const handleStudentClick = (student: typeof students[0]) => {
+        setSelectedStudent(student);
+    };
+
+    const handleInputChange = (field: keyof typeof students[0], value: string) => {
+        if (selectedStudent) {
+            setSelectedStudent({
+                ...selectedStudent,
+                [field]: value,
+            });
+        }
     };
 
     return (
@@ -41,131 +56,122 @@ const StudentTrackingSystem: React.FC = () => {
                     >
                         <h2>Students</h2>
                         <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
-                            <div
-                                style={{
-                                    padding: '10px',
-                                    borderBottom: '1px solid #eee',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                Geesath - Grade 10
-                            </div>
-                            <div
-                                style={{
-                                    padding: '10px',
-                                    borderBottom: '1px solid #eee',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                Hirusha - Grade 11
-                            </div>
-                            <div
-                                style={{
-                                    padding: '10px',
-                                    borderBottom: '1px solid #eee',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                Tommy - Grade 9
-                            </div>
+                            {students.map((student) => (
+                                <div
+                                    key={student.id}
+                                    onClick={() => handleStudentClick(student)}
+                                    style={{
+                                        padding: '10px',
+                                        borderBottom: '1px solid #eee',
+                                        cursor: 'pointer',
+                                        backgroundColor: selectedStudent?.id === student.id ? '#f0f2f5' : 'white',
+                                    }}
+                                >
+                                    {student.name} - {student.grade}
+                                </div>
+                            ))}
                         </div>
                     </div>
 
                     {/* Student Details */}
-                    <div
-                        style={{
-                            backgroundColor: 'white',
-                            padding: '20px',
-                            borderRadius: '8px',
-                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                        }}
-                    >
-                        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                            <div
-                                style={{
-                                    width: '100px',
-                                    height: '100px',
-                                    borderRadius: '50%',
-                                    backgroundColor: '#ddd',
-                                    marginRight: '20px',
-                                }}
-                            ></div>
-                            <div>
-                                <h2>Geesath</h2>
-                                <p>Student ID: 2024001</p>
-                                <p>Grade: 10</p>
-                            </div>
-                        </div>
-
-                        <div style={{ display: 'flex', marginBottom: '20px', borderBottom: '1px solid #ddd' }}>
-                            {['Personal Info', 'Academic', 'Extracurricular', 'Achievements'].map((tab) => (
+                    {selectedStudent && (
+                        <div
+                            style={{
+                                backgroundColor: 'white',
+                                padding: '20px',
+                                borderRadius: '8px',
+                                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                            }}
+                        >
+                            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
                                 <div
-                                    key={tab}
-                                    onClick={() => handleTabClick(tab)}
                                     style={{
-                                        padding: '10px 20px',
-                                        cursor: 'pointer',
-                                        borderBottom: activeTab === tab ? '2px solid #2c3e50' : '2px solid transparent',
-                                        color: activeTab === tab ? '#2c3e50' : 'inherit',
+                                        width: '100px',
+                                        height: '100px',
+                                        borderRadius: '50%',
+                                        backgroundColor: '#ddd',
+                                        marginRight: '20px',
                                     }}
-                                >
-                                    {tab}
+                                ></div>
+                                <div>
+                                    <h2>{selectedStudent.name}</h2>
+                                    <p>Student ID: {selectedStudent.id}</p>
+                                    <p>Grade: {selectedStudent.grade}</p>
                                 </div>
-                            ))}
-                        </div>
-
-                        {/* Tab Contents */}
-                        {activeTab === 'Personal Info' && (
-                            <div>
-                                <div style={{ marginBottom: '15px' }}>
-                                    <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-                                        Full Name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        defaultValue="Geesath"
-                                        style={{
-                                            width: '100%',
-                                            padding: '8px',
-                                            border: '1px solid #ddd',
-                                            borderRadius: '4px',
-                                        }}
-                                    />
-                                </div>
-                                <div style={{ marginBottom: '15px' }}>
-                                    <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-                                        Date of Birth
-                                    </label>
-                                    <input
-                                        type="date"
-                                        defaultValue="2007-05-15"
-                                        style={{
-                                            width: '100%',
-                                            padding: '8px',
-                                            border: '1px solid #ddd',
-                                            borderRadius: '4px',
-                                        }}
-                                    />
-                                </div>
-                                <button
-                                    style={{
-                                        padding: '10px 20px',
-                                        backgroundColor: '#2c3e50',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '5px',
-                                        cursor: 'pointer',
-                                    }}
-                                >
-                                    Save Changes
-                                </button>
                             </div>
-                        )}
 
-                        {activeTab === 'Academic' && <div>Academic Details...</div>}
-                        {activeTab === 'Extracurricular' && <div>Extracurricular Details...</div>}
-                        {activeTab === 'Achievements' && <div>Achievements Details...</div>}
-                    </div>
+                            <div style={{ display: 'flex', marginBottom: '20px', borderBottom: '1px solid #ddd' }}>
+                                {['Personal Info', 'Academic', 'Extracurricular', 'Achievements'].map((tab) => (
+                                    <div
+                                        key={tab}
+                                        onClick={() => handleTabClick(tab)}
+                                        style={{
+                                            padding: '10px 20px',
+                                            cursor: 'pointer',
+                                            borderBottom: activeTab === tab ? '2px solid #2c3e50' : '2px solid transparent',
+                                            color: activeTab === tab ? '#2c3e50' : 'inherit',
+                                        }}
+                                    >
+                                        {tab}
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Tab Contents */}
+                            {activeTab === 'Personal Info' && (
+                                <div>
+                                    <div style={{ marginBottom: '15px' }}>
+                                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+                                            Full Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={selectedStudent.name}
+                                            onChange={(e) => handleInputChange('name', e.target.value)}
+                                            style={{
+                                                width: '100%',
+                                                padding: '8px',
+                                                border: '1px solid #ddd',
+                                                borderRadius: '4px',
+                                            }}
+                                        />
+                                    </div>
+                                    <div style={{ marginBottom: '15px' }}>
+                                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
+                                            Date of Birth
+                                        </label>
+                                        <input
+                                            type="date"
+                                            value={selectedStudent.dob}
+                                            onChange={(e) => handleInputChange('dob', e.target.value)}
+                                            style={{
+                                                width: '100%',
+                                                padding: '8px',
+                                                border: '1px solid #ddd',
+                                                borderRadius: '4px',
+                                            }}
+                                        />
+                                    </div>
+                                    <button
+                                        style={{
+                                            padding: '10px 20px',
+                                            backgroundColor: '#2c3e50',
+                                            color: 'white',
+                                            border: 'none',
+                                            borderRadius: '5px',
+                                            cursor: 'pointer',
+                                        }}
+                                    >
+                                        Save Changes
+                                    </button>
+                                </div>
+                            )}
+
+                            {activeTab === 'Academic' && <div>{selectedStudent.academic}</div>}
+                            {activeTab === 'Extracurricular' && <div>{selectedStudent.extracurricular}</div>}
+                            {activeTab === 'Achievements' && <div>{selectedStudent.achievements}</div>}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
