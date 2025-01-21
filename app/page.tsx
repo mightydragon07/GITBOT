@@ -167,9 +167,15 @@ const StudentTrackingSystem: React.FC = () => {
                                 </div>
                             )}
 
-                            {activeTab === 'Academic' && <div>{selectedStudent.academic}</div>}
-                            {activeTab === 'Extracurricular' && <div>{selectedStudent.extracurricular}</div>}
-                            {activeTab === 'Achievements' && <div>{selectedStudent.achievements}</div>}
+{activeTab === 'Academic' && (
+                                <div style={{ whiteSpace: 'pre-line' }}>{selectedStudent.academic}</div>
+                            )}
+{activeTab === 'Extracurricular' && (
+                                <div style={{ whiteSpace: 'pre-line' }}>{selectedStudent.extracurricular}</div>
+                            )}
+ {activeTab === 'Achievements'&& (
+                                <div style={{ whiteSpace: 'pre-line' }}>{selectedStudent.achievements}</div>
+                            )}
                         </div>
                     )}
                 </div>
