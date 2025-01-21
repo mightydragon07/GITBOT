@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { students } from './students'; // Ensure this path is correct
+import { students } from './Students'; // Ensure this path is correct
 
 const StudentTrackingSystem: React.FC = () => {
     const [activeTab, setActiveTab] = useState('Personal Info');
