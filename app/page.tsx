@@ -36,7 +36,8 @@ const StudentTrackingSystem: React.FC = () => {
                         type="text"
                         placeholder="Search students..."
                         style={{
-                            width: '60%',
+                            width: '90%',
+                            maxWidth: '400px',
                             padding: '10px',
                             border: '1px solid #ddd',
                             borderRadius: '5px',
@@ -44,7 +45,13 @@ const StudentTrackingSystem: React.FC = () => {
                     />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 3fr', gap: '20px' }}>
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 3fr',
+                        gap: '20px',
+                    }}
+                >
                     {/* Sidebar */}
                     <div
                         style={{
@@ -165,16 +172,6 @@ const StudentTrackingSystem: React.FC = () => {
                                         Save Changes
                                     </button>
                                 </div>
-                            )}
-
-{activeTab === 'Academic' && (
-                                <div style={{ whiteSpace: 'pre-line' }}>{selectedStudent.academic}</div>
-                            )}
-{activeTab === 'Extracurricular' && (
-                                <div style={{ whiteSpace: 'pre-line' }}>{selectedStudent.extracurricular}</div>
-                            )}
- {activeTab === 'Achievements'&& (
-                                <div style={{ whiteSpace: 'pre-line' }}>{selectedStudent.achievements}</div>
                             )}
                         </div>
                     )}
