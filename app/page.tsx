@@ -27,7 +27,7 @@ const StudentTrackingSystem: React.FC = () => {
     return (
         <div style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
             <header style={{ backgroundColor: '#2c3e50', color: 'white', padding: '20px', textAlign: 'center' }}>
-                <h1>GitBot - Student Tracking System</h1>
+                <h1>GITBOT - Student Tracking System</h1>
             </header>
 
             <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
@@ -36,8 +36,7 @@ const StudentTrackingSystem: React.FC = () => {
                         type="text"
                         placeholder="Search students..."
                         style={{
-                            width: '90%',
-                            maxWidth: '400px',
+                            width: '60%',
                             padding: '10px',
                             border: '1px solid #ddd',
                             borderRadius: '5px',
@@ -45,13 +44,7 @@ const StudentTrackingSystem: React.FC = () => {
                     />
                 </div>
 
-                <div
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: '1fr 3fr',
-                        gap: '20px',
-                    }}
-                >
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 3fr', gap: '20px' }}>
                     {/* Sidebar */}
                     <div
                         style={{
@@ -172,6 +165,16 @@ const StudentTrackingSystem: React.FC = () => {
                                         Save Changes
                                     </button>
                                 </div>
+                            )}
+
+{activeTab === 'Academic' && (
+                                <div style={{ whiteSpace: 'pre-line' }}>{selectedStudent.academic}</div>
+                            )}
+{activeTab === 'Extracurricular' && (
+                                <div style={{ whiteSpace: 'pre-line' }}>{selectedStudent.extracurricular}</div>
+                            )}
+ {activeTab === 'Achievements'&& (
+                                <div style={{ whiteSpace: 'pre-line' }}>{selectedStudent.achievements}</div>
                             )}
                         </div>
                     )}
